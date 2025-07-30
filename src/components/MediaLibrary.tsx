@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useRef } from 'react'
 import { useDrop } from 'react-dnd'
 import { Upload, Video, Music, Type, Image as ImageIcon, FileText } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -86,7 +86,8 @@ const MediaLibrary: React.FC<MediaLibraryProps> = ({ className = '' }) => {
               trimEnd: 10,
               volume: 1,
               track: 1,
-              effects: []
+              effects: [],
+              type: 'audio'
             }
             
             setMediaFiles(prev => [...prev, file])
@@ -155,6 +156,9 @@ const MediaLibrary: React.FC<MediaLibraryProps> = ({ className = '' }) => {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
   }
   
+  const dropRef = useRef<HTMLDivElement>(null)
+  drop(dropRef)
+
   return (
     <div className={`bg-panel-bg border-r border-border flex flex-col ${className}`}>
       {/* Header */}
@@ -166,12 +170,12 @@ const MediaLibrary: React.FC<MediaLibraryProps> = ({ className = '' }) => {
       </div>
       
       {/* Upload Area */}
-      <div
-        ref={drop}
-        className={`relative m-4 border-2 border-dashed rounded-lg transition-colors ${
-          dragActive || isOver
-            ? 'border-accent bg-accent/10'
-            : 'border-border hover:border-accent/50'
+        <div
+          ref={dropRef}
+          className={`relative m-4 border-2 border-dashed rounded-lg transition-colors ${
+            dragActive || isOver
+              ? 'border-accent bg-accent/10'
+              : 'border-border hover:border-accent/50'
         }`}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}

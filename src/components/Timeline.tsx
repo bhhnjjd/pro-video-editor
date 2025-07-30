@@ -169,11 +169,11 @@ const Timeline: React.FC<TimelineProps> = ({ className = '' }) => {
           />
           
           {/* Timeline Content */}
-          <div
-            ref={timelineRef}
-            className="relative h-full overflow-auto scrollbar-thin"
-            style={{ width: Math.max(timelineWidth, '100%') }}
-            onClick={handleTimelineClick}
+            <div
+              ref={timelineRef}
+              className="relative h-full overflow-auto scrollbar-thin"
+              style={{ width: Math.max(timelineWidth, 1000) }}
+              onClick={handleTimelineClick}
           >
             {/* Grid Lines */}
             {ui.showGrid && (
@@ -312,11 +312,11 @@ interface TimelineTrackProps {
   onClipSelect: (clipId: string, multiSelect?: boolean) => void
 }
 
-const TimelineTrack: React.FC<TimelineTrackProps> = ({ 
-  track, 
-  index, 
-  pixelsPerSecond, 
-  onClipSelect 
+const TimelineTrack: React.FC<TimelineTrackProps> = ({
+  track,
+  index,
+  pixelsPerSecond,
+  onClipSelect
 }) => {
   const [, drop] = useDrop({
     accept: 'MEDIA_FILE',
@@ -329,9 +329,12 @@ const TimelineTrack: React.FC<TimelineTrackProps> = ({
     }
   })
   
+  const dropRef = useRef<HTMLDivElement>(null)
+  drop(dropRef)
+
   return (
     <div
-      ref={drop}
+      ref={dropRef}
       className="border-b border-border relative"
       style={{ height: track.height }}
     >
@@ -424,9 +427,12 @@ const TimelineClip: React.FC<TimelineClipProps> = ({ clip, pixelsPerSecond, onSe
     document.addEventListener('mouseup', handleMouseUp)
   }
   
+  const dragRef = useRef<HTMLDivElement>(null)
+  drag(dragRef)
+
   return (
     <motion.div
-      ref={drag}
+      ref={dragRef}
       className={`timeline-clip absolute ${isSelected ? 'selected' : ''}`}
       style={getClipStyle()}
       onClick={handleClipClick}
