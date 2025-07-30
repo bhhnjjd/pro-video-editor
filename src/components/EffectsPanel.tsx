@@ -50,24 +50,24 @@ const EffectsPanel: React.FC<EffectsPanel> = ({ className = '' }) => {
       enabled: true
     }
     
-    const updatedEffects = [...(selectedClip.effects || []), newEffect]
-    updateClip(selectedClip.id, { effects: updatedEffects })
+    const updatedEffects = [...(selectedClip as any).effects || [], newEffect]
+    updateClip(selectedClip.id, { effects: updatedEffects as any })
   }
   
   const updateEffect = (effectId: string, updates: Partial<Effect>) => {
     if (!selectedClip || !('effects' in selectedClip)) return
     
-    const updatedEffects = selectedClip.effects.map(effect =>
+    const updatedEffects = (selectedClip as any).effects.map((effect: any) =>
       effect.id === effectId ? { ...effect, ...updates } : effect
     )
-    updateClip(selectedClip.id, { effects: updatedEffects })
+    updateClip(selectedClip.id, { effects: updatedEffects as any })
   }
   
   const removeEffect = (effectId: string) => {
     if (!selectedClip || !('effects' in selectedClip)) return
     
-    const updatedEffects = selectedClip.effects.filter(effect => effect.id !== effectId)
-    updateClip(selectedClip.id, { effects: updatedEffects })
+    const updatedEffects = (selectedClip as any).effects.filter((effect: any) => effect.id !== effectId)
+    updateClip(selectedClip.id, { effects: updatedEffects as any })
   }
   
   if (!selectedClip) {

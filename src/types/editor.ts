@@ -13,7 +13,7 @@ export interface VideoClip {
   opacity: number
   volume: number
   track: number
-  type: 'video' | 'audio' | 'image' | 'text'
+  type: 'video'
   effects: Effect[]
   transitions: Transition[]
   thumbnail?: string
@@ -32,10 +32,12 @@ export interface AudioClip {
   track: number
   waveform?: number[]
   effects: AudioEffect[]
+  type: 'audio'
 }
 
 export interface TextClip {
   id: string
+  name?: string
   text: string
   startTime: number
   endTime: number
@@ -52,6 +54,7 @@ export interface TextClip {
   track: number
   effects: Effect[]
   animations: Animation[]
+  type: 'text'
 }
 
 export interface Effect {

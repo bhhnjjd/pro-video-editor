@@ -376,7 +376,11 @@ export class AudioProcessor {
   }
   
   cleanup() {
-    if (this.audioContext && this.audioContext.state !== 'closed') {
+    if (
+      this.audioContext &&
+      this.audioContext instanceof AudioContext &&
+      this.audioContext.state !== 'closed'
+    ) {
       this.audioContext.close()
     }
   }
