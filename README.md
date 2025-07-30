@@ -17,6 +17,7 @@ npm run dev
 打开浏览器访问 [http://localhost:3000](http://localhost:3000)。
 
 ## Docker 部署
+仓库已包含 `Dockerfile`，可直接构建镜像并运行：
 1. 构建镜像
    ```bash
    docker build -t provideoeditor .
